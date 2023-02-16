@@ -1,5 +1,5 @@
 require('dotenv').config()
-const { Client, GatewayIntentBits,EmbedBuilder } = require('discord.js');
+const { Client, GatewayIntentBits, EmbedBuilder } = require('discord.js');
 const schedule = require('node-schedule');
 
 const client = new Client({
