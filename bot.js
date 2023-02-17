@@ -1,6 +1,7 @@
 require('dotenv').config()
 const { Client, GatewayIntentBits, EmbedBuilder } = require('discord.js');
-const schedule = require('node-schedule');
+const {scheduleReminder} = require('./tools/scheduleReminder')
+
 
 const client = new Client({
     intents: [
@@ -16,14 +17,9 @@ const client = new Client({
 
 
 client.on('ready', async client => {
-    const rule = new schedule.RecurrenceRule();
-    rule.dayOfWeek = [ new schedule.Range(1, 5)];
-    rule.hour = 18;
-    rule.minute = 31;
+  console.log('Bot is running!')
     const channel = await client.channels.cache.get(process.env.ASYNC_LEARNING_CHANNEL_ID)
-    const job = schedule.scheduleJob(rule, function(){
-        channel.send('**Have you studied yet?**')
-      });
+    scheduleReminder(10,30,channel) //hours: 0-23, minutes :1-59
 })
 
 client.login(process.env.CLIENT_TOKEN);
